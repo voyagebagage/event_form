@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap");
+
+/* Override Ant Design Button Styles */
+.ant-btn-primary:hover {
+  background-color: #4caf50 !important; /* A green color */
+  border-color: #4caf50 !important; /* A green color */
+  color: #fff !important; /* White text */
+}
+
+/* Change text color on hover */
+.ant-btn-primary {
+  color: #4caf50 !important; /* A green color for text */
+  background-color: #fff !important; /* White background */
+  border-color: #4caf50 !important; /* A green color for border */
+}
+
+:where(.css-dev-only-do-not-override-djtmh8).ant-picker-dropdown
+  .ant-picker-time-panel-column
+  > li.ant-picker-time-panel-cell-selected
+  .ant-picker-time-panel-cell-inner {
+  background: #f0ffe6;
+}
+
+:where(.css-dev-only-do-not-override-djtmh8).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-selected:not(
+    .ant-picker-cell-disabled
+  )
+  .ant-picker-cell-inner,
+:where(.css-dev-only-do-not-override-djtmh8).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-range-start:not(
+    .ant-picker-cell-disabled
+  )
+  .ant-picker-cell-inner,
+:where(.css-dev-only-do-not-override-djtmh8).ant-picker-dropdown
+  .ant-picker-cell-in-view.ant-picker-cell-range-end:not(
+    .ant-picker-cell-disabled
+  )
+  .ant-picker-cell-inner {
+  background-color: #4caf50 !important; /* A green color */
+}
