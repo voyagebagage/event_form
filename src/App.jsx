@@ -290,7 +290,7 @@ function App() {
               <label
                 htmlFor="when"
                 className="block mb-2 text-xl tracking-wide font-lato">
-                When ?
+                📅 When ?
               </label>
 
               <div className="flex gap-2 mb-12">
@@ -310,7 +310,7 @@ function App() {
                   className="w-1/3 bg-green-700 border border-green-600 rounded text-md  p-2"
                   required
                 /> */}
-                {/* 📅{" "} */}
+
                 <DatePicker
                   name="dateTime"
                   id="dateTime"
@@ -318,9 +318,6 @@ function App() {
                   disabledDate={disabledDate}
                   disabledTime={disabledTime}
                   showTime={{ hideDisabledOptions: true }}
-                  size="small"
-                  inputFontSizeSM
-                  multipleItemHeightSM
                   panelRender={(panel) => {
                     const customPanel = cloneElement(panel, {
                       style: {
