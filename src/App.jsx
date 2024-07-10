@@ -318,6 +318,7 @@ function App() {
                   disabledDate={disabledDate}
                   disabledTime={disabledTime}
                   showTime={{ hideDisabledOptions: true }}
+                  inputReadOnly={true}
                   panelRender={(panel) => {
                     const customPanel = cloneElement(panel, {
                       style: {
