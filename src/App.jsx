@@ -4,7 +4,7 @@ import { disabledDate, disabledTime } from "./utils/functions";
 
 function App() {
   const [result, setResult] = React.useState("");
-  const [startDate, setStartDate] = useState(null);
+  // const [startDate, setStartDate] = useState(null);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [formFields, setFormFields] = useState({});
   const [partnership, setPartnership] = React.useState({
@@ -16,39 +16,44 @@ function App() {
   const onSubmit = async (event) => {
     event.preventDefault();
     setResult("Sending....");
+    console.log("Sending....");
 
     const formData = new FormData(event.target);
-
-    formData.append("access_key", process.env.WEB3FORMS_ACCESS_KEY);
+    console.log("formData", formData);
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
     formData.append("todoToday", "https://todo.today/my-account/");
-
+    console.log("formData2", formData);
     for (const [key, value] of formData) {
-      console.log(key, value);
+      // console.log(key, value);
       setFormFields((prev) => ({ ...prev, [key]: value }));
     }
 
     const note = generateCopyText(event);
 
     formData.append("sum_up", note);
-    console.log("note SUB", note);
+    console.log("NOTE SUB", note);
 
     const responseWeb3form = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
     });
+    formData.delete("access_key");
 
     // Send a message to Telegram
     const message = note; // Your message with an emoji
-    const myToken = process.env.TELEGRAM_BOT_TOKEN;
+    const myToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+    console.log("myToken", myToken);
+
     const telegramApi = `https://api.telegram.org/bot${myToken}/sendMessage`;
 
+    console.log("telegramApi", telegramApi);
     const responseTelegram = await fetch(telegramApi, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        chat_id: process.env.CHAT_ID,
+        chat_id: import.meta.env.VITE_CHAT_ID,
         text: message,
         parse_mode: "Markdown", // Or 'HTML' if you prefer
       }),
@@ -56,9 +61,9 @@ function App() {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // URL-encode the message
-    const urlencodedtext = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/+33769654361?text=${urlencodedtext}`;
-    console.log(whatsappURL);
+    // const urlencodedtext = encodeURIComponent(message);
+    // const whatsappURL = `https://wa.me/+33769654361?text=${urlencodedtext}`;
+    // console.log(whatsappURL);
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const data1 = await responseWeb3form.json();
     const data2 = await responseTelegram.json();
@@ -77,7 +82,7 @@ function App() {
 
   const generateCopyText = (event) => {
     const dealType =
-      !partnership.new && partnership.regular && formFields?.deal === regular
+      !partnership.new && partnership.regular && formFields?.deal === "regular"
         ? "50/50"
         : "70/30";
 
@@ -150,16 +155,17 @@ function App() {
   };
   const handleChangeService = (event) => {
     if (event.target.value === "rental") {
-      setPartnership((prev) => ({ new: true, regular: false }));
+      setPartnership(() => ({ new: true, regular: false }));
     }
   };
-  console.log(partnership.new, partnership.regular, { formFields });
+  // console.log(partnership.new, partnership.regular, { formFields });
+  console.log({ formFields });
   return (
     <>
       <div className="bg-green-900 text-white p-10">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold mb-4 text-center font-unbounded">
-            Facilitator "Your company name" Form
+            Event Form
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <form onSubmit={onSubmit}>
@@ -335,7 +341,7 @@ function App() {
                   disabledTime={disabledTime}
                   showTime={{ hideDisabledOptions: true }}
                   className="w-1/2 hover:bg-green-700 bg-green-700 border border-green-600 rounded text-md text-white p-2"
-                  required
+                  // required
                 />
                 <input
                   type="text"
@@ -343,7 +349,7 @@ function App() {
                   id="price"
                   placeholder="price thb"
                   className="w-1/2 bg-green-700 border border-green-600 rounded p-2"
-                  required
+                  // required
                 />
               </div>
               {/* Radio Buttons */}
@@ -397,7 +403,7 @@ function App() {
               <label
                 htmlFor="message"
                 className="block mb-2 text-xl tracking-wide font-lato">
-                Things you'll need:
+                Things you&aposll need:
               </label>
               <textarea
                 id="requirement"
@@ -420,7 +426,7 @@ function App() {
                     Telegram
                   </option>
                   <option value="messenger">Messenger</option>
-                  <option value="whats_app">What's App</option>
+                  <option value="whats_app">What&aposs App</option>
                   <option value="ig">IG</option>
                 </select>
                 <label
@@ -474,7 +480,7 @@ function App() {
                 <label
                   htmlFor="contact_whats_app"
                   className="inline-flex items-center justify-between">
-                  <span className="ml-2 mr-2 font-lato">What's App</span>
+                  <span className="ml-2 mr-2 font-lato">What&aposs App</span>
                   <input
                     type="text"
                     id="contact_whats_app_input"
