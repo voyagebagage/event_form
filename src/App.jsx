@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { cloneElement, useState } from "react";
 import { DatePicker } from "antd";
 import { disabledDate, disabledTime } from "./utils/functions";
 
@@ -310,7 +310,7 @@ function App() {
                   className="w-1/3 bg-green-700 border border-green-600 rounded text-md  p-2"
                   required
                 /> */}
-                📅{" "}
+                {/* 📅{" "} */}
                 <DatePicker
                   name="dateTime"
                   id="dateTime"
@@ -322,16 +322,19 @@ function App() {
                   inputFontSizeSM
                   multipleItemHeightSM
                   panelRender={(panel) => {
-                    console.log(panel);
-                    return (
-                      <div
-                        style={{
-                          maxWidth: "100%",
-                          fontSize: "14px",
-                        }}>
-                        {panel}
-                      </div>
-                    );
+                    const customPanel = cloneElement(panel, {
+                      style: {
+                        ...panel.props.style,
+                        position: "absolute",
+                        top: 0,
+                        left: -28,
+                        zIndex: 100000000,
+                        fontSize: "12px",
+                        maxWidth: window.innerWidth - 10,
+                        backgroundColor: "white",
+                      },
+                    });
+                    return <>{customPanel}</>;
                   }}
                   className="w-1/2 hover:bg-green-700 bg-green-700 border border-green-600 rounded text-md text-white p-2"
                   required
