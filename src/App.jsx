@@ -15,7 +15,7 @@ function App() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setResult("Sending....");
+    setResult("Sending 🧘‍♂️ 🧘‍♂️ 🧘‍♂️");
 
     const formData = new FormData(event.target);
 
@@ -57,6 +57,7 @@ function App() {
 
     if (data1.success && data2.ok) {
       setResult("Submitted");
+      setResult("🙏🏼");
       setModalOpen(true);
       event.target.reset();
       setResult("");
@@ -142,8 +143,8 @@ function App() {
     <>
       <div className="bg-green-900 text-white sm:p-10">
         <div className="container mx-auto">
-          <h1 className="text-3xl font-bold mb-4 text-center font-unbounded">
-            Event Form
+          <h1 className="text-3xl font-bold py-4 text-center font-unbounded">
+            ✨ Event Form ✨
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <form onSubmit={onSubmit}>
