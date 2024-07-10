@@ -101,16 +101,16 @@ function App() {
       ✨ ${formFields.eventName || event?.target.eventName?.value} 
       👤 ${formFields.name || event?.target.name?.value}
       📅 ${
-        formFields?.dateTime.split(" ")[0].split("-").reverse().join("/") ||
+        formFields?.dateTime?.split(" ")[0].split("-").reverse().join("/") ||
         event?.target.dateTime?.value
-          .split(" ")[0]
+          ?.split(" ")[0]
           .split("-")
           .reverse()
           .join("/")
       }
       🕒 ${
-        formFields.dateTime.split(" ")[1] ||
-        event?.target.dateTimea?.value.split(" ")[1]
+        formFields.dateTime?.split(" ")[1] ||
+        event?.target.dateTimea?.value?.split(" ")[1]
       }
       📍 ${formFields.area || event?.target.area?.value}
       🤝 ${dealType} deal
