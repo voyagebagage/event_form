@@ -322,7 +322,7 @@ function App() {
                   inputFontSizeSM
                   multipleItemHeightSM
                   panelRender={(panel) => (
-                    <div style={{ maxWidth: window.screen.width }}>{panel}</div>
+                    <div style={{ maxWidth: window.innerWidth }}>{panel}</div>
                   )}
                   className="w-1/2 hover:bg-green-700 bg-green-700 border border-green-600 rounded text-md text-white p-2"
                   required
