@@ -101,10 +101,10 @@ function App() {
       ✨ ${formFields.eventName || event?.target.eventName?.value} 
       👤 ${formFields.name || event?.target.name?.value}
       📅 ${
-        formFields?.dateTime?.split(" ")[0].split("-").reverse().join("/") ||
+        formFields?.dateTime?.split?.split("-").reverse().join("/") ||
         event?.target.dateTime?.value
           ?.split(" ")[0]
-          .split("-")
+          ?.split("-")
           .reverse()
           .join("/")
       }
@@ -564,12 +564,12 @@ function App() {
                       <span>
                         📅{" "}
                         {formFields.dateTime
-                          .split(" ")[0]
-                          .split("-")
+                          ?.split(" ")[0]
+                          ?.split("-")
                           .reverse()
                           .join("/")}
                       </span>
-                      <span>🕒 {formFields.dateTime.split(" ")[1]}</span>
+                      <span>🕒 {formFields.dateTime?.split(" ")[1]}</span>
                       {formFields.service === "music-performance-dj_set" && (
                         <span>🔊 🎧 🎶</span>
                       )}
