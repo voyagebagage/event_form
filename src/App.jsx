@@ -16,37 +16,30 @@ function App() {
   const onSubmit = async (event) => {
     event.preventDefault();
     setResult("Sending....");
-    console.log("Sending....");
 
     const formData = new FormData(event.target);
-    console.log("formData", { formData });
-    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY); //to be able to send to web3forms
     formData.append("todoToday", "https://todo.today/my-account/");
-    console.log("formData2", { formData });
+
     for (const [key, value] of formData) {
-      console.log("key", key);
       setFormFields((prev) => ({ ...prev, [key]: value }));
     }
-    console.log("check", formFields);
+    // generate the sum up note to be sent to telegram and be copied from the user
     const note = generateCopyText(event);
-
     formData.append("sum_up", note);
-    console.log("NOTE SUB", note);
 
     const responseWeb3form = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
     });
-    formData.delete("access_key");
+    formData.delete("access_key"); // no need to send it to telegram
 
     // Send a message to Telegram
-    const message = note; // Your message with an emoji
+    const message = note;
     const myToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-    console.log("myToken", myToken);
-
     const telegramApi = `https://api.telegram.org/bot${myToken}/sendMessage`;
 
-    console.log("telegramApi", telegramApi);
     const responseTelegram = await fetch(telegramApi, {
       method: "POST",
       headers: {
@@ -55,18 +48,12 @@ function App() {
       body: JSON.stringify({
         chat_id: import.meta.env.VITE_CHAT_ID,
         text: message,
-        parse_mode: "Markdown", // Or 'HTML' if you prefer
+        parse_mode: "Markdown", // Or 'HTML'
       }),
     });
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    // URL-encode the message
-    // const urlencodedtext = encodeURIComponent(message);
-    // const whatsappURL = `https://wa.me/+33769654361?text=${urlencodedtext}`;
-    // console.log(whatsappURL);
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    const data1 = await responseWeb3form.json();
-    const data2 = await responseTelegram.json();
+    const data1 = await responseWeb3form.json(); // subbmitting to web3form
+    const data2 = await responseTelegram.json(); // subbmitting to telegram
 
     if (data1.success && data2.ok) {
       setResult("Submitted");
@@ -85,13 +72,6 @@ function App() {
       !partnership.new && partnership.regular && formFields?.deal === "regular"
         ? "50/50"
         : "70/30";
-
-    // const eventType = formFields.service === "music-performance-dj_set" && ( 🔊 🎧 🎶) ||
-    // formFields.service === "yoga" && 🧘‍♀️ ||
-    // formFields.service === "dayWorkshop" && (
-    //   ✨
-    // )||
-    // formFields.service === "rental" && 🏘
 
     return `
       👉 Let us know your full program 48 hours prior 📣
@@ -148,7 +128,6 @@ function App() {
     }
   };
   const handleChangeRegular = (event) => {
-    console.log("EN: " + event.name + "ET: " + event.target.name);
     if (event.target.name === "type_time") {
       setPartnership((prev) => ({ new: prev.new, regular: !prev.regular }));
     }
@@ -158,8 +137,7 @@ function App() {
       setPartnership(() => ({ new: true, regular: false }));
     }
   };
-  // console.log(partnership.new, partnership.regular, { formFields });
-  console.log({ formFields });
+
   return (
     <>
       <div className="bg-green-900 text-white sm:p-10">
@@ -182,6 +160,7 @@ function App() {
                   name="name"
                   className="focus:outline-none focus:ring-2 focus:ring-yellow-200 w-full p-2 mb-8 bg-green-700 border border-green-600 rounded text-white "
                   placeholder="Your Name"
+                  required
                 />
               </div>
 
@@ -203,8 +182,6 @@ function App() {
                 <option value="new_new-crowd">Yes, but I have a crowd</option>
                 <option value="famous">No, but I am famous</option>
               </select>
-
-              {/* <div class="my-4 border-t border-gray-300"></div> */}
 
               <div className="bg-green-700 rounded-md p-4 mb-4">
                 <legend className="block mb-6 text-xl">
@@ -308,7 +285,7 @@ function App() {
                 name="eventName"
                 className="w-full p-2 mb-10 bg-green-700 border border-green-600 rounded text-white focus:outline-none focus:ring-2 focus:ring-yellow-200 "
                 placeholder="Event Name"
-                // required
+                required
               />
               <label
                 htmlFor="when"
@@ -333,6 +310,7 @@ function App() {
                   className="w-1/3 bg-green-700 border border-green-600 rounded text-md  p-2"
                   required
                 /> */}
+                📅{" "}
                 <DatePicker
                   name="dateTime"
                   id="dateTime"
@@ -340,8 +318,16 @@ function App() {
                   disabledDate={disabledDate}
                   disabledTime={disabledTime}
                   showTime={{ hideDisabledOptions: true }}
+                  size="small"
+                  inputFontSizeSM
+                  multipleItemHeightSM
+                  panelRender={(panel) => (
+                    <div style={{ maxWidth: window.screen.availWidth }}>
+                      {panel}
+                    </div>
+                  )}
                   className="w-1/2 hover:bg-green-700 bg-green-700 border border-green-600 rounded text-md text-white p-2"
-                  // required
+                  required
                 />
                 <input
                   type="text"
@@ -349,9 +335,10 @@ function App() {
                   id="price"
                   placeholder="price thb"
                   className="w-1/2 bg-green-700 border border-green-600 rounded p-2"
-                  // required
+                  required
                 />
               </div>
+
               {/* Radio Buttons */}
               <fieldset className="mb-4">
                 <div className="bg-green-700 rounded-md p-4 mb-4">
@@ -399,11 +386,12 @@ function App() {
                   </p>
                 </div>
               </fieldset>
+
               {/* Textarea */}
               <label
                 htmlFor="message"
                 className="block mb-2 text-xl tracking-wide font-lato">
-                Things you&aposll need:
+                Things you&apos;ll need:
               </label>
               <textarea
                 id="requirement"
@@ -426,7 +414,7 @@ function App() {
                     Telegram
                   </option>
                   <option value="messenger">Messenger</option>
-                  <option value="whats_app">What&aposs App</option>
+                  <option value="whats_app">What&apos;s App</option>
                   <option value="ig">IG</option>
                 </select>
                 <label
@@ -480,7 +468,7 @@ function App() {
                 <label
                   htmlFor="contact_whats_app"
                   className="inline-flex items-center justify-between">
-                  <span className="ml-2 mr-2 font-lato">What&aposs App</span>
+                  <span className="ml-2 mr-2 font-lato">What&apos;s App</span>
                   <input
                     type="text"
                     id="contact_whats_app_input"
