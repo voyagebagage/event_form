@@ -24,7 +24,7 @@ function App() {
     formData.append("todoToday", "https://todo.today/my-account/");
     console.log("formData2", { formData });
     for (const [key, value] of formData) {
-      // console.log(key, value);
+      console.log("key", key);
       setFormFields((prev) => ({ ...prev, [key]: value }));
     }
     console.log("check", formFields);
