@@ -19,15 +19,15 @@ function App() {
     console.log("Sending....");
 
     const formData = new FormData(event.target);
-    console.log("formData", formData);
+    console.log("formData", { formData });
     formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
     formData.append("todoToday", "https://todo.today/my-account/");
-    console.log("formData2", formData);
+    console.log("formData2", { formData });
     for (const [key, value] of formData) {
       // console.log(key, value);
       setFormFields((prev) => ({ ...prev, [key]: value }));
     }
-
+    console.log("check", formFields);
     const note = generateCopyText(event);
 
     formData.append("sum_up", note);
@@ -162,7 +162,7 @@ function App() {
   console.log({ formFields });
   return (
     <>
-      <div className="bg-green-900 text-white p-10">
+      <div className="bg-green-900 text-white sm:p-10">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold mb-4 text-center font-unbounded">
             Event Form
