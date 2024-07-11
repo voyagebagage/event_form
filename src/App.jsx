@@ -5,6 +5,8 @@ import { disabledDate, disabledTime } from "./utils/functions";
 function App() {
   const [result, setResult] = React.useState("");
   const [user, setUser] = React.useState({});
+  // loading states
+  const [loading, setLoading] = useState(true);
   // const [startDate, setStartDate] = useState(null);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [formFields, setFormFields] = useState({});
@@ -13,10 +15,12 @@ function App() {
     regular: false,
   });
   const closeModal = () => setModalOpen(false);
+
   useEffect(() => {
     const tUserId = window?.Telgram?.WebApp?.initDataUnsafe?.user;
     if (tUserId) {
       setUser(tUserId);
+      setLoading(false);
       localStorage.setItem("tUserId", tUserId);
       console.log("tUserId", tUserId, user);
     }
@@ -161,10 +165,17 @@ function App() {
             ✨ Event Form ✨
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
-            <p>{("initData", user?.id || "user id")}</p>
-            <p>
-              {("user", JSON.stringify(user && { user }, null, 2) || "user")}
-            </p>
+            {!loading && (
+              <>
+                <p>{("initData", user?.id || "user id")}</p>
+                <p>
+                  {
+                    ("user",
+                    JSON.stringify(user && { user }, null, 2) || "user")
+                  }
+                </p>
+              </>
+            )}
 
             <form onSubmit={onSubmit}>
               {/* Text Input */}
