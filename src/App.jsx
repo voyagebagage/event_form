@@ -169,6 +169,13 @@ function App() {
                 ) || "caca")
               }
             </p>
+            <p>
+              {
+                ("WebAppUser",
+                JSON.stringify(window?.WebAppInitData?.WebAppUser, null, 2) ||
+                  "caca")
+              }
+            </p>
             <form onSubmit={onSubmit}>
               {/* Text Input */}
               <div className="flex-col">
