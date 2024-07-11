@@ -155,7 +155,7 @@ function App() {
             <p>
               {
                 ("initData",
-                JSON.stringify(window?.Telgram?.WebApp?.initData, null, 2) ||
+                JSON.stringify(window?.Telgram?.WebApp?.WebAppUser, null, 2) ||
                   "caca")
               }
             </p>
@@ -172,8 +172,11 @@ function App() {
             <p>
               {
                 ("WebAppUser",
-                JSON.stringify(window?.WebAppInitData?.WebAppUser, null, 2) ||
-                  "caca")
+                JSON.stringify(
+                  window?.Telgram?.WebApp?.WebAppInitData?.user,
+                  null,
+                  2
+                ) || "caca")
               }
             </p>
             <form onSubmit={onSubmit}>
