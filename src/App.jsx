@@ -7,7 +7,8 @@ function App() {
   const [user, setUser] = React.useState({});
   //userId states
   const [userId, setUserId] = useState(null);
-
+  //chack states
+  const [check, setCheck] = useState(false);
   // loading states
   const [isLoading, setIsLoading] = useState(true);
   // const [startDate, setStartDate] = useState(null);
@@ -23,10 +24,11 @@ function App() {
     const tUserId = window?.Telgram?.WebApp?.WebAppInitData?.user?.id;
     const tUser = window?.Telgram?.WebApp?.WebAppInitData?.user;
     if (tUserId || tUser) {
+      setCheck(true);
       setUser(tUser);
       setUserId(tUserId);
 
-      localStorage.setItem("tUserId", tUserId);
+      // localStorage.setItem("tUserId", tUserId);
       console.log("tUserId", tUserId, user);
     }
     setIsLoading(false);
@@ -172,6 +174,7 @@ function App() {
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <>
+              {check && <p> check 👤 {user?.first_name || "user name"}</p>}
               <p>{("initData", userId || "user id")}</p>
               <p>
                 {("user", JSON.stringify(user && { user }, null, 2) || "user")}
