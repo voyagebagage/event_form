@@ -107,7 +107,7 @@ function App() {
       👉 Register and Add you event 👇
       🔔 ${formFields.todoToday || ""} 🔔
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// 👤 message from 
+      👤 message from @${user}
       ✨ ${formFields.eventName || event?.target.eventName?.value} 
       👤 ${formFields.name || event?.target.name?.value}
       📅 ${
@@ -134,12 +134,7 @@ function App() {
       📞 ${formFields.contact_method || event?.target.requirement?.value}
     `.trim();
   };
-  console.log(
-    "telegram",
-    window?.telegramApi,
-    window.Telgram?.WebApp,
-    window.Telgram
-  );
+
   const copyToClipboard = () => {
     const textToCopy = generateCopyText();
     navigator.clipboard
@@ -181,7 +176,7 @@ function App() {
             ✨ Event Form ✨
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
-            <p className="">
+            <p className="mb-2 text-xl tracking-wide font-lato">
               Good {getTimeOfDay()} {user ? `, Hi ${user}` : ", Hi there "}
             </p>
 
