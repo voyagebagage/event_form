@@ -30,7 +30,7 @@ function App() {
         // alert(JSON.stringify(tUser, null, 2), tUser?.username);
         setUserId(tUserId);
         if (tUserId) {
-          setUser(tUser.username);
+          setUser(tUser);
           setIsLoading(false);
         }
       } else {
@@ -107,7 +107,7 @@ function App() {
       👉 Register and Add you event 👇
       🔔 ${formFields.todoToday || ""} 🔔
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      👤 message from @${user}
+      👤 message from @${user.username}
       ✨ ${formFields.eventName || event?.target.eventName?.value} 
       👤 ${formFields.name || event?.target.name?.value}
       📅 ${
@@ -167,7 +167,6 @@ function App() {
       setPartnership(() => ({ new: true, regular: false }));
     }
   };
-  console.log("user", user, userId, isLoading);
   return !isLoading ? (
     <>
       <div className="bg-green-900 text-white sm:p-10">
@@ -177,7 +176,7 @@ function App() {
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <p className="mb-4 text-xl tracking-wide font-lato">
-              Good {getTimeOfDay()} {user ? `${user} !` : " !"}
+              Good {getTimeOfDay()} {user ? `${user.username} !` : " !"}
             </p>
 
             <form onSubmit={onSubmit}>
@@ -192,7 +191,8 @@ function App() {
                   type="text"
                   id="name"
                   name="name"
-                  className="focus:outline-none focus:ring-2 focus:ring-yellow-200 w-full p-2 mb-8 bg-green-700 border border-green-600 rounded text-white "
+                  value={user.username || ""}
+                  className="focus:outline-none focus:ring-2 focus:ring-yellow-200 w-full p-2 mb-8 bg-green-700 border border-green-600 rounded text-white"
                   placeholder="Your Name"
                   required
                 />
@@ -653,7 +653,7 @@ function App() {
     </>
   ) : (
     <div className="flex h-screen justify-center items-center bg-gradient-to-b from-green-600 via-green-900 to-green-900">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
+      <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-green-500"></div>
     </div>
   );
 }
