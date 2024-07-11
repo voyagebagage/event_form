@@ -5,6 +5,9 @@ import { disabledDate, disabledTime } from "./utils/functions";
 function App() {
   const [result, setResult] = React.useState("");
   const [user, setUser] = React.useState({});
+  //userId states
+  const [userId, setUserId] = useState(null);
+
   // loading states
   const [isLoading, setIsLoading] = useState(true);
   // const [startDate, setStartDate] = useState(null);
@@ -17,9 +20,11 @@ function App() {
   const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
-    const tUserId = window?.Telgram?.WebApp?.initDataUnsafe?.user;
+    const tUserId = window?.Telgram?.WebApp?.initDataUnsafe?.user?.id;
+    const tUser = window?.Telgram?.WebApp?.initDataUnsafe?.user;
     if (tUserId) {
-      setUser(tUserId);
+      setUser(tUser);
+      setUserId(tUserId);
       setIsLoading(false);
       localStorage.setItem("tUserId", tUserId);
       console.log("tUserId", tUserId, user);
@@ -28,7 +33,7 @@ function App() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setResult("Sending 🧘‍♂️ 🧘‍♂️ 🧘‍♂️");
+    setResult("Sending....");
 
     const formData = new FormData(event.target);
 
@@ -166,7 +171,7 @@ function App() {
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <>
-              <p>{("initData", user?.id || "user id")}</p>
+              <p>{("initData", userId || "user id")}</p>
               <p>
                 {("user", JSON.stringify(user && { user }, null, 2) || "user")}
               </p>
