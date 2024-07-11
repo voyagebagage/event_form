@@ -22,13 +22,14 @@ function App() {
   useEffect(() => {
     const tUserId = window?.Telgram?.WebApp?.initDataUnsafe?.user?.id;
     const tUser = window?.Telgram?.WebApp?.initDataUnsafe?.user;
-    if (tUserId) {
+    if (tUserId && tUser) {
       setUser(tUser);
       setUserId(tUserId);
-      setIsLoading(false);
+
       localStorage.setItem("tUserId", tUserId);
       console.log("tUserId", tUserId, user);
     }
+    setIsLoading(false);
   }, []);
 
   const onSubmit = async (event) => {
@@ -649,7 +650,7 @@ function App() {
       <span>{result}</span>
     </>
   ) : (
-    <div className="flex h-screen justify-center items-center">
+    <div className="flex h-screen justify-center items-center bg-gradient-to-b from-green-600 via-green-900 to-green-900">
       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
     </div>
   );
