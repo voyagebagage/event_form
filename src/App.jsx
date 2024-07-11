@@ -5,8 +5,6 @@ import { disabledDate, disabledTime, getTimeOfDay } from "./utils/functions";
 function App() {
   const [result, setResult] = React.useState("");
   const [user, setUser] = React.useState({});
-  //userId states
-  const [userId, setUserId] = useState(null);
   // loading states
   const [isLoading, setIsLoading] = useState(true);
   // const [startDate, setStartDate] = useState(null);
@@ -28,7 +26,7 @@ function App() {
         const tUser = webApp.initDataUnsafe.user;
         const tUserId = webApp.initDataUnsafe.user?.id;
         // alert(JSON.stringify(tUser, null, 2), tUser?.username);
-        setUserId(tUserId);
+
         if (tUserId) {
           setUser(tUser);
           setIsLoading(false);
