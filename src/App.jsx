@@ -105,7 +105,12 @@ function App() {
       📞 ${formFields.contact_method || event?.target.requirement?.value}
     `.trim();
   };
-  console.log("telegram", window?.telegramApi, window.Telgram.WebApp);
+  console.log(
+    "telegram",
+    window?.telegramApi,
+    window.Telgram?.WebApp,
+    window.Telgram
+  );
   const copyToClipboard = () => {
     const textToCopy = generateCopyText();
     navigator.clipboard
