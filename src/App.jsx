@@ -27,7 +27,7 @@ function App() {
       if (webApp.initDataUnsafe && webApp.initDataUnsafe.user) {
         const tUser = webApp.initDataUnsafe.user;
         const tUserId = webApp.initDataUnsafe.user?.id;
-        alert(tUser, tUser?.userName);
+        alert(JSON.stringify(tUser, null, 2), tUser?.userName);
         setUser(tUser.userName);
         setUserId(tUserId);
 
