@@ -25,8 +25,6 @@ function App() {
       if (webApp.initDataUnsafe && webApp.initDataUnsafe.user) {
         const tUser = webApp.initDataUnsafe.user;
         const tUserId = webApp.initDataUnsafe.user?.id;
-        // alert(JSON.stringify(tUser, null, 2), tUser?.username);
-
         if (tUserId) {
           setUser(tUser);
           setIsLoading(false);
@@ -174,7 +172,7 @@ function App() {
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <p className="mb-4 text-xl tracking-wide font-lato">
-              Good {getTimeOfDay()} {user ? `${user.username} !` : " !"}
+              Good {getTimeOfDay()} {user ? `${user.name} !` : " !"}
             </p>
 
             <form onSubmit={onSubmit}>
