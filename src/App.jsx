@@ -152,6 +152,7 @@ function App() {
             ✨ Event Form ✨
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
+            <p>{JSON.stringify(window?.Telgram?.WebApp, null, 2)}</p>
             <form onSubmit={onSubmit}>
               {/* Text Input */}
               <div className="flex-col">
