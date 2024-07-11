@@ -6,7 +6,7 @@ function App() {
   const [result, setResult] = React.useState("");
   const [user, setUser] = React.useState({});
   // loading states
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   // const [startDate, setStartDate] = useState(null);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [formFields, setFormFields] = useState({});
@@ -20,7 +20,7 @@ function App() {
     const tUserId = window?.Telgram?.WebApp?.initDataUnsafe?.user;
     if (tUserId) {
       setUser(tUserId);
-      setLoading(false);
+      setIsLoading(false);
       localStorage.setItem("tUserId", tUserId);
       console.log("tUserId", tUserId, user);
     }
@@ -157,7 +157,7 @@ function App() {
     }
   };
 
-  return (
+  return !isLoading ? (
     <>
       <div className="bg-green-900 text-white sm:p-10">
         <div className="container mx-auto">
@@ -165,17 +165,12 @@ function App() {
             ✨ Event Form ✨
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
-            {!loading && (
-              <>
-                <p>{("initData", user?.id || "user id")}</p>
-                <p>
-                  {
-                    ("user",
-                    JSON.stringify(user && { user }, null, 2) || "user")
-                  }
-                </p>
-              </>
-            )}
+            <>
+              <p>{("initData", user?.id || "user id")}</p>
+              <p>
+                {("user", JSON.stringify(user && { user }, null, 2) || "user")}
+              </p>
+            </>
 
             <form onSubmit={onSubmit}>
               {/* Text Input */}
@@ -648,6 +643,10 @@ function App() {
 
       <span>{result}</span>
     </>
+  ) : (
+    <div className="flex h-screen justify-center items-center">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
+    </div>
   );
 }
 
