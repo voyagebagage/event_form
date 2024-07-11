@@ -195,6 +195,7 @@ function App() {
                   }
                   className="focus:outline-none focus:ring-2 focus:ring-yellow-200 w-full p-2 mb-8 bg-green-700 border border-green-600 rounded text-white"
                   placeholder="Your Name"
+                  autoFocus
                   required
                 />
               </div>
