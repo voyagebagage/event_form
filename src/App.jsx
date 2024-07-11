@@ -189,7 +189,7 @@ function App() {
                   type="text"
                   id="name"
                   name="name"
-                  value={user.username || ""}
+                  value={user.first_name || ""}
                   className="focus:outline-none focus:ring-2 focus:ring-yellow-200 w-full p-2 mb-8 bg-green-700 border border-green-600 rounded text-white"
                   placeholder="Your Name"
                   required
