@@ -1,9 +1,10 @@
-import React, { cloneElement, useState } from "react";
+import React, { cloneElement, useEffect, useState } from "react";
 import { DatePicker } from "antd";
 import { disabledDate, disabledTime } from "./utils/functions";
 
 function App() {
   const [result, setResult] = React.useState("");
+  const [user, setUser] = React.useState({});
   // const [startDate, setStartDate] = useState(null);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [formFields, setFormFields] = useState({});
@@ -12,6 +13,14 @@ function App() {
     regular: false,
   });
   const closeModal = () => setModalOpen(false);
+  useEffect(() => {
+    const tUserId = window?.Telgram?.WebApp?.initDataUnsafe?.user;
+    if (tUserId) {
+      setUser(tUserId);
+      localStorage.setItem("tUserId", tUserId);
+      console.log("tUserId", tUserId, user);
+    }
+  }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -152,33 +161,9 @@ function App() {
             ✨ Event Form ✨
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
-            <p>
-              {
-                ("initData",
-                JSON.stringify(window?.Telgram?.WebApp?.WebAppUser, null, 2) ||
-                  "caca")
-              }
-            </p>
-            <p>
-              {
-                ("initDataUnsafe",
-                JSON.stringify(
-                  window?.Telgram?.WebApp?.initDataUnsafe,
-                  null,
-                  2
-                ) || "caca")
-              }
-            </p>
-            <p>
-              {
-                ("WebAppUser",
-                JSON.stringify(
-                  window?.Telgram?.WebApp?.WebAppInitData?.user,
-                  null,
-                  2
-                ) || "caca")
-              }
-            </p>
+            <p>{("initData", user?.id || "caca")}</p>
+            <p>{("user", JSON.stringify(user && user, null, 2) || "caca")}</p>
+
             <form onSubmit={onSubmit}>
               {/* Text Input */}
               <div className="flex-col">
