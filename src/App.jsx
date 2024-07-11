@@ -1,6 +1,6 @@
 import React, { cloneElement, useEffect, useState } from "react";
 import { DatePicker } from "antd";
-import { disabledDate, disabledTime } from "./utils/functions";
+import { disabledDate, disabledTime, getTimeOfDay } from "./utils/functions";
 
 function App() {
   const [result, setResult] = React.useState("");
@@ -27,9 +27,10 @@ function App() {
       if (webApp.initDataUnsafe && webApp.initDataUnsafe.user) {
         const tUser = webApp.initDataUnsafe.user;
         const tUserId = webApp.initDataUnsafe.user?.id;
-        alert(`User ID: ${tUser.id} - User Name: ${tUser.first_name} ${tUser}`);
-        setUser(tUser);
+
+        setUser(tUser.userName);
         setUserId(tUserId);
+
         setIsLoading(false);
       } else {
         console.error("User data is not available.");
@@ -178,12 +179,9 @@ function App() {
             ✨ Event Form ✨
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
-            <>
-              <p>{("initData", userId || "user id")}</p>
-              <p>
-                {("user", JSON.stringify(user && { user }, null, 2) || "user")}
-              </p>
-            </>
+            <p className="">
+              Good {getTimeOfDay()} {user ? `, Hi ${user}` : ", Hi there "}
+            </p>
 
             <form onSubmit={onSubmit}>
               {/* Text Input */}

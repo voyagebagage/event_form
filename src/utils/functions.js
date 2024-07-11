@@ -31,3 +31,18 @@ export const disabledTime = (current) => {
     disabledSeconds: () => [],
   };
 };
+
+export function getTimeOfDay() {
+  const today = new Date();
+  const curHr = today.getHours();
+  if (curHr < 4) {
+    return "night";
+  }
+  if (curHr < 12) {
+    return "morning";
+  }
+  if (curHr < 18) {
+    return "afternoon";
+  }
+  return "night";
+}
