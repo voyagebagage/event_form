@@ -7,8 +7,6 @@ function App() {
   const [user, setUser] = React.useState({});
   //userId states
   const [userId, setUserId] = useState(null);
-  //chack states
-  const [check, setCheck] = useState(false);
   // loading states
   const [isLoading, setIsLoading] = useState(true);
   // const [startDate, setStartDate] = useState(null);
@@ -21,17 +19,24 @@ function App() {
   const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
-    const tUserId = window?.Telgram?.WebApp?.WebAppInitData?.user?.id;
-    const tUser = window?.Telgram?.WebApp?.WebAppInitData?.user;
-    if (tUserId || tUser) {
-      setCheck(true);
-      setUser(tUser);
-      setUserId(tUserId);
+    // Ensure the Telegram WebApp object is available
+    if (window.Telegram && window.Telegram.WebApp) {
+      const webApp = window.Telegram.WebApp;
 
-      // localStorage.setItem("tUserId", tUserId);
-      console.log("tUserId", tUserId, user);
+      // Check if user data is available
+      if (webApp.initDataUnsafe && webApp.initDataUnsafe.user) {
+        const tUser = webApp.initDataUnsafe.user;
+        const tUserId = webApp.initDataUnsafe.user?.id;
+        alert(`User ID: ${tUser.id} - User Name: ${tUser.first_name} ${tUser}`);
+        setUser(tUser);
+        setUserId(tUserId);
+        setIsLoading(false);
+      } else {
+        console.error("User data is not available.");
+      }
+    } else {
+      console.error("Telegram WebApp is not initialized.");
     }
-    setIsLoading(false);
   }, []);
 
   const onSubmit = async (event) => {
@@ -174,7 +179,6 @@ function App() {
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <>
-              {check && <p> check 👤 {user?.first_name || "user name"}</p>}
               <p>{("initData", userId || "user id")}</p>
               <p>
                 {("user", JSON.stringify(user && { user }, null, 2) || "user")}
