@@ -20,8 +20,8 @@ function App() {
   const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
-    const tUserId = window.Telgram.WebApp?.WebAppInitData?.user?.id;
-    const tUser = window.Telgram.WebApp?.WebAppInitData?.user;
+    const tUserId = window?.Telgram?.WebApp?.WebAppInitData?.user?.id;
+    const tUser = window?.Telgram?.WebApp?.WebAppInitData?.user;
     if (tUserId && tUser) {
       setUser(tUser);
       setUserId(tUserId);
