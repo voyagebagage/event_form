@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const tUserId = window?.Telgram?.WebApp?.WebAppInitData?.user?.id;
     const tUser = window?.Telgram?.WebApp?.WebAppInitData?.user;
-    if (tUserId && tUser) {
+    if (tUserId || tUser) {
       setUser(tUser);
       setUserId(tUserId);
 
