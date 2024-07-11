@@ -27,11 +27,12 @@ function App() {
       if (webApp.initDataUnsafe && webApp.initDataUnsafe.user) {
         const tUser = webApp.initDataUnsafe.user;
         const tUserId = webApp.initDataUnsafe.user?.id;
-        alert(JSON.stringify(tUser, null, 2), tUser?.userName);
-        setUser(tUser.userName);
+        // alert(JSON.stringify(tUser, null, 2), tUser?.username);
         setUserId(tUserId);
-
-        setIsLoading(false);
+        if (tUserId) {
+          setUser(tUser.username);
+          setIsLoading(false);
+        }
       } else {
         console.error("User data is not available.");
       }
@@ -106,6 +107,7 @@ function App() {
       👉 Register and Add you event 👇
       🔔 ${formFields.todoToday || ""} 🔔
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 👤 message from 
       ✨ ${formFields.eventName || event?.target.eventName?.value} 
       👤 ${formFields.name || event?.target.name?.value}
       📅 ${
