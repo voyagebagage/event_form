@@ -161,7 +161,7 @@ function App() {
       setPartnership(() => ({ new: true, regular: false }));
     }
   };
-
+  console.log("user", user, userId, isLoading);
   return !isLoading ? (
     <>
       <div className="bg-green-900 text-white sm:p-10">
