@@ -190,6 +190,9 @@ function App() {
                   id="name"
                   name="name"
                   value={user.first_name || ""}
+                  onChange={(e) =>
+                    setUser({ ...user, first_name: e.target.value })
+                  }
                   className="focus:outline-none focus:ring-2 focus:ring-yellow-200 w-full p-2 mb-8 bg-green-700 border border-green-600 rounded text-white"
                   placeholder="Your Name"
                   required
