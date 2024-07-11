@@ -162,7 +162,9 @@ function App() {
           </h1>
           <div className="max-w-md mx-auto bg-green-800 p-8 border border-green-700 rounded">
             <p>{("initData", user?.id || "user id")}</p>
-            <p>{("user", JSON.stringify(user && user, null, 2) || "user")}</p>
+            <p>
+              {("user", JSON.stringify(user && { user }, null, 2) || "user")}
+            </p>
 
             <form onSubmit={onSubmit}>
               {/* Text Input */}
